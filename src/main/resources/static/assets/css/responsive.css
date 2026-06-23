@@ -1,0 +1,95 @@
+/* ── Responsive: Tablet (<=768px) ── */
+@media (max-width: 768px) {
+    .page-header {
+        padding: 20px 0;
+    }
+
+    .page-header h1 {
+        font-size: 22px;
+    }
+
+    .page-body {
+        padding-bottom: 24px;
+    }
+
+    .page-shell {
+        padding: 16px 0;
+    }
+
+    .container {
+        width: calc(100% - 24px);
+    }
+
+    h1 { font-size: 20px; }
+    h2 { font-size: 16px; }
+
+    .card {
+        padding: 16px;
+        border-radius: var(--radius-m);
+    }
+
+    .row > .card {
+        flex: 1 1 100% !important;
+        min-width: 0;
+    }
+
+    .row > .btn {
+        flex: 1 1 auto;
+    }
+
+    .chart-row {
+        grid-template-columns: 80px 1fr 48px;
+        gap: 8px;
+    }
+}
+
+/* ── Responsive: Mobile (<=480px) ── */
+@media (max-width: 480px) {
+    .page-header {
+        padding: 16px 0;
+    }
+
+    .page-header h1 {
+        font-size: 18px;
+    }
+
+    .page-body {
+        padding-bottom: 16px;
+    }
+
+    .page-shell {
+        padding: 12px 0;
+    }
+
+    .container {
+        width: calc(100% - 16px);
+    }
+
+    .card {
+        padding: 14px;
+        border-radius: var(--radius-s);
+    }
+
+    .row {
+        gap: 8px;
+    }
+
+    .row > .btn {
+        flex: 1 1 100%;
+    }
+
+    .chart-row {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-label {
+        margin-bottom: -8px;
+    }
+
+    .login-logo {
+        width: 56px;
+        height: 56px;
+        font-size: 24px;
+        border-radius: 14px;
+    }
+}

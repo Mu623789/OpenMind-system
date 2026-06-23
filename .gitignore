@@ -1,0 +1,6 @@
+target/
+.DS_Store
+.local-mysql-data/
+.local-mysql-run/
+*.log
+

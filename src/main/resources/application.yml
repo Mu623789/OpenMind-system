@@ -1,0 +1,35 @@
+server:
+  port: 9527
+
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://127.0.0.1:3307/cpt208_discussion?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: ${REDIS_HOST:127.0.0.1}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:}
+    timeout: 60000ms
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+app:
+  cors:
+    allowed-origin: http://localhost:3000
+  jwt:
+    secret: ${JWT_SECRET:cpt208-discussion-platform-jwt-secret-key-2026}
+    access-token-days: 7
+  ai:
+    api-key: ${AI_API_KEY:}
+    api-url: ${AI_API_URL:https://api.deepseek.com/chat/completions}
+    model: ${AI_MODEL:deepseek-chat}

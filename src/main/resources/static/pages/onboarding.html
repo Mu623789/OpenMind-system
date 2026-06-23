@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenMind - Personality</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="../assets/css/tokens.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+<div class="page-shell centered">
+    <div class="container" style="max-width: 520px;">
+        <div class="login-brand">
+            <div class="login-logo">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 3C11.4 3 6 8.1 6 14.3c0 3.8 1.9 7.2 5 9.3V27a2 2 0 002 2h10a2 2 0 002-2v-3.4c3.1-2.1 5-5.5 5-9.3C30 8.1 24.6 3 18 3z" fill="rgba(255,255,255,.9)"/>
+                    <path d="M14 30h8v1.5a2.5 2.5 0 01-2.5 2.5h-3a2.5 2.5 0 01-2.5-2.5V30z" fill="rgba(255,255,255,.7)"/>
+                    <path d="M18 8v8M14 12h8" stroke="url(#glow)" stroke-width="2.5" stroke-linecap="round"/>
+                    <defs><linearGradient id="glow" x1="14" y1="8" x2="22" y2="16"><stop stop-color="#818cf8"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+                </svg>
+            </div>
+            <div class="login-title">Almost there!</div>
+            <div class="login-subtitle">Tell us about your personality</div>
+        </div>
+        <div class="card stack">
+            <h1>Personality Selection</h1>
+            <div style="color:var(--text-2);">Welcome, <span id="userName" style="font-weight:600;color:var(--text-1);"></span></div>
+            <form id="personalityForm" class="stack">
+                <label style="padding:12px 16px;border:2px solid var(--border);border-radius:var(--radius-m);cursor:pointer;transition:all .2s;"><input type="radio" name="personality" value="E"> &#x1F31E; E - Extrovert &mdash; outgoing, energetic, social</label>
+                <label style="padding:12px 16px;border:2px solid var(--border);border-radius:var(--radius-m);cursor:pointer;transition:all .2s;"><input type="radio" name="personality" value="I"> &#x1F319; I - Introvert &mdash; thoughtful, reflective, focused</label>
+                <button class="btn" type="submit">&#x2728; Save and Continue</button>
+            </form>
+            <div id="message"></div>
+        </div>
+    </div>
+</div>
+<script src="../assets/js/common/storage.js"></script>
+<script src="../assets/js/common/api.js"></script>
+<script src="../assets/js/common/auth.js"></script>
+<script src="../assets/js/common/utils.js"></script>
+<script src="../assets/js/pages/onboarding.js"></script>
+<script src="../assets/js/common/ai-assistant.js"></script>
+</body>
+</html>

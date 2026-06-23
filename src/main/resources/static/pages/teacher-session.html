@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenMind - Session Monitor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
+    <link rel="stylesheet" href="../assets/css/tokens.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/pages.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+<div class="page-header page-header-teacher">
+    <div class="container">
+        <div class="header-shell">
+            <div class="header-copy">
+                <div class="header-eyebrow">Realtime Session Monitor</div>
+                <h1>Session Monitor</h1>
+                <div class="page-header-sub">Track group momentum, watch speaking balance, and review the discussion as it unfolds.</div>
+                <div class="header-meta-line">
+                    <span class="header-meta-pill" id="sessionMeta">Loading session details...</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="exportCsvButton" class="btn btn-glass" type="button">Export CSV</button>
+                <button class="btn btn-glass" type="button" onclick="window.location.href='./teacher-dashboard.html'">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="notificationOverlay" class="notification-overlay" style="display:none;">
+    <div class="notification-box" id="notificationBox">
+        <div id="notificationText"></div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="container monitor-layout">
+        <div id="timerBar" class="card timer-card" style="display:none;">
+            <div class="timer-head">
+                <div class="timer-topic">
+                    <span class="timer-label">Current Topic</span>
+                    <strong id="sessionTopic"></strong>
+                </div>
+                <div id="timerText" class="timer-value">--:--</div>
+            </div>
+            <div class="progress" style="height:8px;">
+                <div id="timerProgress" class="progress-bar" style="width:0%;transition:width 1s linear;"></div>
+            </div>
+        </div>
+        <div id="monitorStats" class="dashboard-stats"></div>
+        <div class="monitor-grid">
+            <div class="monitor-main">
+                <div class="card stack">
+                    <div class="card-header">
+                        <div class="stack" style="gap:6px;">
+                            <div class="card-kicker">Overview</div>
+                            <h2>Realtime Overview</h2>
+                            <div class="card-subtitle">A quick summary of group count, attendance, connection state, and total speaking time.</div>
+                        </div>
+                    </div>
+                    <div id="overviewPanel" class="monitor-overview-grid"></div>
+                </div>
+                <div class="card stack">
+                    <div class="card-header">
+                        <div class="stack" style="gap:6px;">
+                            <div class="card-kicker">Analytics</div>
+                            <h2>Participation Analytics</h2>
+                            <div class="card-subtitle">Switch between group, individual, and timeline views without leaving the monitor.</div>
+                        </div>
+                        <div class="monitor-tabs">
+                            <button id="tabGroup" class="btn btn-outline" type="button">Group</button>
+                            <button id="tabIndividual" class="btn btn-outline" type="button">Individual</button>
+                            <button id="tabTimeline" class="btn btn-outline" type="button">Timeline</button>
+                        </div>
+                    </div>
+                    <div id="analyticsPanel" class="stack"></div>
+                </div>
+            </div>
+            <div class="monitor-sidebar">
+                <div class="card stack">
+                    <div class="card-header">
+                        <div class="stack" style="gap:6px;">
+                            <div class="card-kicker">Alerts</div>
+                            <h2>Session Alerts</h2>
+                            <div class="card-subtitle">Silent groups and other attention points surface here first.</div>
+                        </div>
+                    </div>
+                    <div id="alertPanel" class="monitor-alert-list"></div>
+                </div>
+                <div class="card stack">
+                    <div class="card-header">
+                        <div class="stack" style="gap:6px;">
+                            <div class="card-kicker">Groups</div>
+                            <h2>Group Status</h2>
+                            <div class="card-subtitle">See each group’s current speaker and participation balance at a glance.</div>
+                        </div>
+                    </div>
+                    <div id="groupStatusPanel" class="monitor-group-list"></div>
+                </div>
+            </div>
+        </div>
+        <div id="resultSection" style="display:none;" class="stack">
+            <div class="card stack">
+                <div class="card-header">
+                    <div class="stack" style="gap:6px;">
+                        <div class="card-kicker">Results</div>
+                        <h2>Teaching Analysis</h2>
+                        <div class="card-subtitle">Once the session ends, review the class from a ranking view and a group performance view.</div>
+                    </div>
+                </div>
+                <div id="resultSummaryCards" class="dashboard-stats"></div>
+                <div class="monitor-results-grid">
+                    <div class="detail-panel">
+                        <div class="stack">
+                            <h3>Class Ranking</h3>
+                            <div id="resultRanking" class="leaderboard-list"></div>
+                        </div>
+                    </div>
+                    <div class="detail-panel">
+                        <div class="stack">
+                            <h3>Group Analysis</h3>
+                            <div id="resultGroups" class="detail-stack"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<script src="../assets/js/common/storage.js"></script>
+<script src="../assets/js/common/api.js"></script>
+<script src="../assets/js/common/auth.js"></script>
+<script src="../assets/js/common/utils.js"></script>
+<script src="../assets/js/common/websocket.js"></script>
+<script src="../assets/js/pages/teacher-session.js"></script>
+<script src="../assets/js/common/ai-assistant.js"></script>
+</body>
+</html>

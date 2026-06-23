@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenMind - Result</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
+    <link rel="stylesheet" href="../assets/css/tokens.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/pages.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body class="session-result-page">
+<div class="page-header">
+    <div class="container">
+        <div class="header-shell">
+            <div class="header-copy">
+                <div class="header-eyebrow">Session Outcome</div>
+                <h1>Session Result</h1>
+                <div class="page-header-sub">Review the session from both a global ranking view and a group balance view.</div>
+                <div class="header-meta-line">
+                    <span class="header-meta-pill" id="resultTopic">Loading result...</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="exportCsvButton" class="btn btn-glass" type="button">Export CSV</button>
+                <button id="backButton" class="btn btn-glass" type="button">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="container result-layout">
+        <div id="resultSummary" style="display:none;">
+            <div id="resultSummaryContent" class="dashboard-stats"></div>
+        </div>
+        <div class="card stack result-map-card">
+            <div class="card-header">
+                <div class="stack" style="gap:6px;">
+                    <div class="card-kicker">Quest Complete</div>
+                    <h2>Session Journey</h2>
+                    <div class="card-subtitle">Your discussion route ends here with the final result view.</div>
+                </div>
+            </div>
+            <div class="result-map-viewport" aria-hidden="true">
+                <svg class="result-map-track" viewBox="0 0 920 180">
+                    <path class="result-map-track-shadow" d="M22 126 C150 46 278 18 408 82 S610 158 898 56"></path>
+                    <path class="result-map-track-main" d="M22 126 C150 46 278 18 408 82 S610 158 898 56"></path>
+                </svg>
+                <img id="resultMapPlayer" class="result-map-player" src="../assets/images/avatars/kitty.png" alt="">
+                <div class="result-map-stage result-map-stage-one complete">
+                    <span>1</span>
+                    <strong>Pick Session</strong>
+                </div>
+                <div class="result-map-stage result-map-stage-two complete">
+                    <span>2</span>
+                    <strong>Waiting Room</strong>
+                </div>
+                <div class="result-map-stage result-map-stage-three complete">
+                    <span>3</span>
+                    <strong>Discussion Room</strong>
+                </div>
+                <div class="result-map-stage result-map-stage-four current">
+                    <span>4</span>
+                    <strong>View Result</strong>
+                </div>
+            </div>
+        </div>
+        <div class="result-grid">
+            <div class="result-main">
+                <div class="card stack">
+                    <div class="card-header">
+                        <div class="stack" style="gap:6px;">
+                            <div class="card-kicker">Ranking</div>
+                            <h2>Overall Ranking</h2>
+                            <div class="card-subtitle">A single leaderboard across the whole session, ordered by total speaking time.</div>
+                        </div>
+                    </div>
+                    <div id="resultRanking" class="leaderboard-list"></div>
+                </div>
+            </div>
+            <div class="result-side">
+                <div class="card stack">
+                    <div class="card-header">
+                        <div class="stack" style="gap:6px;">
+                            <div class="card-kicker">Group Analysis</div>
+                            <h2>Group Details</h2>
+                            <div class="card-subtitle">Each group is shown with summary metrics, top speaker insight, and contribution bars.</div>
+                        </div>
+                    </div>
+                    <div id="resultGroups" class="result-group-grid"></div>
+                </div>
+            </div>
+        </div>
+        <div id="message"></div>
+    </div>
+</div>
+<script src="../assets/js/common/storage.js"></script>
+<script src="../assets/js/common/api.js"></script>
+<script src="../assets/js/common/auth.js"></script>
+<script src="../assets/js/common/utils.js"></script>
+<script src="../assets/js/pages/session-result.js"></script>
+<script src="../assets/js/common/ai-assistant.js"></script>
+</body>
+</html>

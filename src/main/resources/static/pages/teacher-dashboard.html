@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenMind - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
+    <link rel="stylesheet" href="../assets/css/tokens.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/pages.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+<div class="page-header page-header-teacher">
+    <div class="container">
+        <div class="header-shell">
+            <div class="header-copy">
+                <div class="header-eyebrow">Teaching Command Center</div>
+                <h1>Teacher Dashboard</h1>
+                <div class="page-header-sub">Welcome back, <span id="teacherName"></span>. Create sessions, group students, and open live monitors from one place.</div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-glass" type="button" onclick="window.location.href='./student-settings.html?from=teacher-dashboard'">Profile</button>
+                <button class="btn btn-glass" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="container dashboard-shell">
+        <div id="dashboardStats" class="dashboard-stats"></div>
+        <div class="dashboard-grid">
+            <div class="card stack">
+                <div class="card-header">
+                    <div class="stack" style="gap:6px;">
+                        <div class="card-kicker">Launch</div>
+                        <h2>Create Session</h2>
+                        <div class="card-subtitle">Set the topic, duration, and preferred group size. Everything else stays in the current workflow.</div>
+                    </div>
+                </div>
+                <form id="sessionForm" class="stack">
+                    <div class="form-group">
+                        <label class="form-label" for="topic">Discussion Topic</label>
+                        <input id="topic" class="input" placeholder="e.g. Should AI replace teachers?" required>
+                    </div>
+                    <div class="row" style="gap:16px;">
+                        <div class="form-group" style="flex:1;">
+                            <label class="form-label" for="durationMinutes">Duration (min)</label>
+                            <input id="durationMinutes" class="input" type="number" min="1" max="120" value="15">
+                            <span class="form-hint">1 to 120 minutes</span>
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label class="form-label" for="groupSize">Group Size</label>
+                            <input id="groupSize" class="input" type="number" min="2" max="6" value="4">
+                            <span class="form-hint">2 to 6 students per group</span>
+                        </div>
+                    </div>
+                    <button id="createSessionButton" class="btn" type="submit">Create Session</button>
+                </form>
+                <div id="message"></div>
+            </div>
+            <div class="card stack">
+                <div class="card-header">
+                    <div class="stack" style="gap:6px;">
+                        <div class="card-kicker">Manage</div>
+                        <h2>Session List</h2>
+                        <div class="card-subtitle">Monitor the full lifecycle from draft sessions to grouped, running, and completed discussions.</div>
+                    </div>
+                </div>
+                <div id="sessionList" class="session-list"></div>
+                <button id="viewAllTeacherSessionsBtn" class="btn btn-outline waiting-view-all-btn" type="button" style="display:none;">View All Sessions</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="allTeacherSessionsOverlay" class="notification-overlay" style="display:none;">
+    <div class="notification-box waiting-history-modal waiting-all-sessions-modal">
+        <div class="waiting-history-header">
+            <h2 style="margin:0;font-size:18px;">All Sessions</h2>
+            <button id="closeAllTeacherSessionsBtn" class="btn btn-outline" type="button">Close</button>
+        </div>
+        <div id="allTeacherSessionsList" class="session-list"></div>
+    </div>
+</div>
+<script src="../assets/js/common/storage.js"></script>
+<script src="../assets/js/common/api.js"></script>
+<script src="../assets/js/common/auth.js"></script>
+<script src="../assets/js/common/utils.js"></script>
+<script src="../assets/js/pages/teacher-dashboard.js"></script>
+<script src="../assets/js/common/ai-assistant.js"></script>
+</body>
+</html>

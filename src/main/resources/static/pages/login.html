@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenMind - Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="../assets/css/tokens.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body class="login-page">
+<div class="page-shell centered">
+    <div class="login-bottom-omi" aria-hidden="true">
+        <img src="../assets/images/openmind_robot_rise_only_transparent_apng.png" alt="" class="login-bottom-omi-image">
+    </div>
+    <div class="login-opening-stage" aria-hidden="true">
+        <div class="login-opening-media">
+            <img id="loginOpeningGif" class="login-opening-gif" src="../assets/images/openmind_robot_rise_clear.gif" alt="">
+            <canvas id="loginOpeningFreeze" class="login-opening-freeze"></canvas>
+        </div>
+    </div>
+    <div class="login-scene" aria-hidden="true">
+        <div class="login-robot-glow"></div>
+        <div class="login-robot-backdrop"></div>
+    </div>
+    <div class="container login-container" style="max-width: 520px;">
+        <div class="login-panel">
+            <div class="login-brand">
+                <div class="login-logo">
+                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 3C11.4 3 6 8.1 6 14.3c0 3.8 1.9 7.2 5 9.3V27a2 2 0 002 2h10a2 2 0 002-2v-3.4c3.1-2.1 5-5.5 5-9.3C30 8.1 24.6 3 18 3z" fill="rgba(255,255,255,.9)"/>
+                        <path d="M14 30h8v1.5a2.5 2.5 0 01-2.5 2.5h-3a2.5 2.5 0 01-2.5-2.5V30z" fill="rgba(255,255,255,.7)"/>
+                        <path d="M18 8v8M14 12h8" stroke="url(#glow)" stroke-width="2.5" stroke-linecap="round"/>
+                        <defs><linearGradient id="glow" x1="14" y1="8" x2="22" y2="16"><stop stop-color="#818cf8"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+                    </svg>
+                </div>
+                <div>
+                    <div class="login-title">OpenMind</div>
+                    <div class="login-subtitle">Open Your Mind, Start the Discussion</div>
+                </div>
+            </div>
+            <div id="omiIntro" class="login-omi-intro">
+                <div class="login-omi-bubble">
+                    <div class="login-omi-label">Meet Omi</div>
+                    <p class="login-omi-line">Hi, I'm Omi, your classroom discussion helper.</p>
+                    <p class="login-omi-line login-omi-highlight">Now let's start!</p>
+                    <span class="login-omi-tail" aria-hidden="true"></span>
+                </div>
+                <div id="omiIdeaStage" class="login-idea-stage">
+                    <div class="login-omi-bubble login-omi-problem-bubble">
+                        <div class="login-omi-label">Omi explains</div>
+                        <p>This group meet some problems in the group discussion. Some students are talkative and some are quiet. The teacher also find it hard to achieve a balance.</p>
+                        <p class="login-omi-highlight">How to solve this problem? Please drag this small bulb to give them ideas!</p>
+                        <div class="login-idea-lab">
+                            <button id="omiIdeaIcon" class="login-idea-icon" type="button" draggable="true" aria-label="Drag the light bulb">
+                                <span aria-hidden="true">💡</span>
+                            </button>
+                            <div id="omiDropZone" class="login-drop-zone" tabindex="0" aria-label="Discussion drop zone">
+                                <img src="../assets/images/discussion.png" alt="Discussion illustration" class="login-drop-image">
+                            </div>
+                        </div>
+                        <div class="login-drop-hint">Drag the icon into the picture to start!</div>
+                        <span class="login-omi-tail login-omi-tail-small" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="loginBubble" class="card stack login-card">
+                <div class="login-audience-switch" role="tablist" aria-label="Choose login portal">
+                    <button class="login-audience-tab active" type="button" data-audience="STUDENT" role="tab" aria-selected="true">
+                        <span aria-hidden="true">🎒</span>
+                        Student
+                    </button>
+                    <button class="login-audience-tab" type="button" data-audience="TEACHER" role="tab" aria-selected="false">
+                        <span aria-hidden="true">📚</span>
+                        Teacher
+                    </button>
+                </div>
+                <h1 id="pageTitle">Login</h1>
+                <div id="loginCardSubtitle" class="login-card-subtitle">Sign in to continue your live discussion session.</div>
+                <form id="loginForm" class="stack login-form">
+                    <div id="nameRow" class="form-group" style="display:none;">
+                        <label class="form-label" for="name">Name</label>
+                        <input id="name" class="input" placeholder="Your display name" minlength="2">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input id="email" class="input" type="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <input id="password" class="input" type="password" placeholder="At least 6 characters" required minlength="6">
+                    </div>
+                    <div id="avatarRow" class="form-group login-avatar-row" style="display:none;">
+                        <div class="form-label">Avatar</div>
+                        <div class="login-avatar-grid" role="radiogroup" aria-label="Choose avatar">
+                            <label class="login-avatar-option">
+                                <input type="radio" name="avatar" value="bat.png">
+                                <span><img src="../assets/images/avatars/bat.png" alt="Bat avatar"></span>
+                            </label>
+                            <label class="login-avatar-option">
+                                <input type="radio" name="avatar" value="bird.png">
+                                <span><img src="../assets/images/avatars/bird.png" alt="Bird avatar"></span>
+                            </label>
+                            <label class="login-avatar-option">
+                                <input type="radio" name="avatar" value="fox.png">
+                                <span><img src="../assets/images/avatars/fox.png" alt="Fox avatar"></span>
+                            </label>
+                            <label class="login-avatar-option">
+                                <input type="radio" name="avatar" value="giraffe.png">
+                                <span><img src="../assets/images/avatars/giraffe.png" alt="Giraffe avatar"></span>
+                            </label>
+                            <label class="login-avatar-option">
+                                <input type="radio" name="avatar" value="drawing.png">
+                                <span><img src="../assets/images/avatars/drawing.png" alt="Drawing avatar"></span>
+                            </label>
+                            <label class="login-avatar-option">
+                                <input type="radio" name="avatar" value="kitty.png" checked>
+                                <span><img src="../assets/images/avatars/kitty.png" alt="Kitty avatar"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <button id="submitButton" class="btn login-cta" type="submit">
+                        <span class="btn-icon login-cta-icon" aria-hidden="true">&#x1F680;</span>
+                        <span id="submitButtonText">Login</span>
+                    </button>
+                </form>
+                <button id="modeToggle" class="btn btn-outline login-secondary-cta" type="button">
+                    <span class="btn-icon login-secondary-icon" aria-hidden="true">&#x270F;&#xFE0F;</span>
+                    <span id="modeToggleText">No account? Register</span>
+                </button>
+                <div id="message"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/js/common/storage.js"></script>
+<script src="../assets/js/common/api.js"></script>
+<script src="../assets/js/common/auth.js"></script>
+<script src="../assets/js/common/utils.js"></script>
+<script src="../assets/js/pages/login.js"></script>
+</body>
+</html>

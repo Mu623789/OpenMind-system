@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenMind - Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="../assets/css/tokens.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+<div class="page-shell centered">
+    <div class="container" style="max-width: 480px;">
+        <div class="card stack profile-card">
+            <div class="profile-title-block">
+                <div class="card-kicker">Account</div>
+                <h1>Profile</h1>
+            </div>
+            <div class="profile-hero">
+                <div id="profileAvatar" class="profile-avatar"></div>
+                <div class="profile-name-block">
+                    <div id="profileName" class="profile-name"></div>
+                    <div id="profileEmail" class="profile-email"></div>
+                </div>
+                <span id="profileRoleBadge" class="status-chip"></span>
+            </div>
+            <hr style="border:none;border-top:1px solid var(--border);margin:0;">
+            <div class="profile-info-grid">
+                <div class="profile-info-item">
+                    <div class="detail-metric-label">Name</div>
+                    <div id="profileNameSummary" class="detail-metric-value">-</div>
+                </div>
+                <div class="profile-info-item">
+                    <div class="detail-metric-label">Email</div>
+                    <div id="profileEmailSummary" class="detail-metric-value">-</div>
+                </div>
+                <div class="profile-info-item">
+                    <div class="detail-metric-label">Personality</div>
+                    <div id="profilePersonalitySummary" class="detail-metric-value">-</div>
+                </div>
+                <div class="profile-info-item profile-coin-item">
+                    <div class="detail-metric-label">Coins</div>
+                    <div id="profileCoinsSummary" class="detail-metric-value profile-coin-value">
+                        <img src="../assets/images/playful/star-coin.png" alt="">
+                        <span>-</span>
+                    </div>
+                </div>
+            </div>
+            <hr style="border:none;border-top:1px solid var(--border);margin:0;">
+            <div id="avatarSection">
+                <form id="avatarForm" class="stack">
+                    <div class="form-label" style="margin-bottom:4px;">Change Avatar</div>
+                    <div class="login-avatar-grid profile-avatar-grid" role="radiogroup" aria-label="Choose avatar">
+                        <label class="login-avatar-option">
+                            <input type="radio" name="avatar" value="bat.png">
+                            <span><img src="../assets/images/avatars/bat.png" alt="Bat avatar"></span>
+                        </label>
+                        <label class="login-avatar-option">
+                            <input type="radio" name="avatar" value="bird.png">
+                            <span><img src="../assets/images/avatars/bird.png" alt="Bird avatar"></span>
+                        </label>
+                        <label class="login-avatar-option">
+                            <input type="radio" name="avatar" value="fox.png">
+                            <span><img src="../assets/images/avatars/fox.png" alt="Fox avatar"></span>
+                        </label>
+                        <label class="login-avatar-option">
+                            <input type="radio" name="avatar" value="giraffe.png">
+                            <span><img src="../assets/images/avatars/giraffe.png" alt="Giraffe avatar"></span>
+                        </label>
+                        <label class="login-avatar-option">
+                            <input type="radio" name="avatar" value="drawing.png">
+                            <span><img src="../assets/images/avatars/drawing.png" alt="Drawing avatar"></span>
+                        </label>
+                        <label class="login-avatar-option">
+                            <input type="radio" name="avatar" value="kitty.png">
+                            <span><img src="../assets/images/avatars/kitty.png" alt="Kitty avatar"></span>
+                        </label>
+                    </div>
+                    <button class="btn btn-outline" type="submit">Save Avatar</button>
+                </form>
+            </div>
+            <hr style="border:none;border-top:1px solid var(--border);margin:0;">
+            <div id="personalitySection">
+                <form id="personalityForm" class="stack">
+                    <div class="form-label" style="margin-bottom:4px;">Change Personality Type</div>
+                    <label class="personality-option"><input type="radio" name="personality" value="E"> E — Extrovert</label>
+                    <label class="personality-option"><input type="radio" name="personality" value="I"> I — Introvert</label>
+                    <button class="btn" type="submit">&#x1F4BE; Save Changes</button>
+                </form>
+            </div>
+            <div id="message"></div>
+            <hr style="border:none;border-top:1px solid var(--border);margin:0;">
+            <div class="row" style="justify-content:space-between;">
+                <button class="btn btn-outline" type="button" id="backButton">&#x2B05;&#xFE0F; Back</button>
+                <button class="btn btn-outline" type="button" onclick="logout()" style="color:var(--red-600);border-color:#fecaca;">&#x1F44B; Logout</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/js/common/storage.js"></script>
+<script src="../assets/js/common/api.js"></script>
+<script src="../assets/js/common/auth.js"></script>
+<script src="../assets/js/common/utils.js"></script>
+<script src="../assets/js/pages/student-settings.js"></script>
+<script src="../assets/js/common/ai-assistant.js"></script>
+</body>
+</html>

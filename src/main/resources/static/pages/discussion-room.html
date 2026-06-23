@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenMind - Discussion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
+    <link rel="stylesheet" href="../assets/css/tokens.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/pages.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body class="discussion-room-page">
+<div class="page-header page-header-student">
+    <div class="container">
+        <div class="header-shell">
+            <div class="header-copy">
+                <div class="header-eyebrow">Live Discussion Space</div>
+                <h1>Discussion Room</h1>
+                <div class="page-header-sub">Stay active, keep the group flowing, and use the AI guide whenever the conversation slows down.</div>
+                <div class="header-meta-line">
+                    <span class="header-meta-pill">Group <strong id="groupName"></strong></span>
+                    <span class="header-meta-pill">Session <strong id="sessionIdText"></strong></span>
+                    <span class="header-meta-pill">Status <strong id="sessionStatusText">Waiting</strong></span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="backToWaitingButton" class="btn btn-glass" type="button">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="notificationOverlay" class="notification-overlay" style="display:none;">
+    <div class="notification-box" id="notificationBox">
+        <div id="notificationText"></div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="container discussion-layout">
+        <div id="timerBar" class="card timer-card" style="display:none;">
+            <div class="timer-head">
+                <div class="timer-topic">
+                    <span class="timer-label">Current Topic</span>
+                    <strong id="sessionTopic"></strong>
+                </div>
+                <div id="timerText" class="timer-value">--:--</div>
+            </div>
+            <div class="progress" style="height:8px;">
+                <div id="timerProgress" class="progress-bar" style="width:0%;transition:width 1s linear;"></div>
+            </div>
+        </div>
+        <div class="card race-stage">
+            <div class="card-header">
+                <div class="stack" style="gap:6px;">
+                    <div class="card-kicker">Race Track</div>
+                    <h2>Discussion Race</h2>
+                </div>
+                <div id="raceCurrentCoins" class="race-current-coins">
+                    <img src="../assets/images/playful/star-coin.png" alt="">
+                    <span>0</span>
+                </div>
+            </div>
+            <div class="race-stage-scene" aria-hidden="true">
+                <img src="../assets/images/playful/rainbow.svg" alt="" class="race-cloud race-cloud-left">
+                <img src="../assets/images/playful/rainbow.svg" alt="" class="race-cloud race-cloud-center">
+                <img src="../assets/images/playful/rainbow.svg" alt="" class="race-cloud race-cloud-right">
+            </div>
+            <div id="raceTrackBoard" class="race-board"></div>
+        </div>
+        <div class="discussion-main">
+            <div class="discussion-panel">
+                <div class="card speaker-stage">
+                    <div class="card-header">
+                        <div class="stack" style="gap:6px;">
+                            <div class="card-kicker">Participation</div>
+                            <h2>Member Participation</h2>
+                            <div class="card-subtitle">Everyone’s speaking time updates here in real time, so the group can self-balance naturally.</div>
+                        </div>
+                    </div>
+                    <div id="memberList"></div>
+                    <div class="speak-cta">
+                        <div class="speak-cta-copy">
+                            <div>
+                                <div class="speak-cta-title">Voice Floor</div>
+                                <div class="speak-cta-sub">Press and hold while you speak. Release when you finish your turn.</div>
+                            </div>
+                        </div>
+                        <button id="speakButton" class="btn speak-btn" type="button">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                            Hold to Speak
+                        </button>
+                        <div id="message"></div>
+                    </div>
+                </div>
+                <div class="card stack">
+                    <div class="card-header">
+                        <div class="stack" style="gap:6px;">
+                            <div class="card-kicker">Timeline</div>
+                            <h2>Speaking Log</h2>
+                        </div>
+                        <div class="header-actions">
+                            <span id="speakingLogMeta" class="form-hint"></span>
+                            <button id="refreshLogButton" class="btn btn-outline" type="button">Refresh</button>
+                        </div>
+                    </div>
+                    <div id="speakingTimeline" class="timeline-list">
+                        <div class="panel-empty">No speaking events yet.</div>
+                    </div>
+                    <button id="viewAllSpeakingLogsBtn" class="btn btn-outline waiting-view-all-btn" type="button" style="display:none;">View All Speaking Logs</button>
+                </div>
+            </div>
+            <div class="insight-sidebar">
+                <div class="card stack">
+                    <div class="card-header">
+                        <div class="stack" style="gap:6px;">
+                            <div class="card-kicker">Ranking</div>
+                            <h2>Leaderboard</h2>
+                            <div class="card-subtitle">A lightweight view of how much airtime each member has earned so far.</div>
+                        </div>
+                    </div>
+                    <div id="rankingList" class="leaderboard-list"></div>
+                </div>
+                <div class="card stack">
+                    <div class="card-header">
+                        <div class="stack" style="gap:6px;">
+                            <div class="card-kicker">Assist</div>
+                            <h2>AI Support</h2>
+                            <div class="card-subtitle">Need momentum? Ask for a fresh prompt that nudges the discussion forward.</div>
+                        </div>
+                    </div>
+                    <div class="ai-companion-panel">
+                        <div class="ai-companion-scene">
+                            <img src="../assets/images/playful/rainbow.svg" alt="" class="ai-scene-rainbow">
+                            <img src="../assets/images/playful/star.svg" alt="" class="ai-scene-star ai-scene-star-left">
+                            <img src="../assets/images/playful/stars.svg" alt="" class="ai-scene-star ai-scene-star-right">
+                            <div class="ai-companion-shell">
+                                <span class="ai-status-dot" id="aiStatusDot"></span>
+                                <img src="../assets/images/icons/robot.svg" alt="AI companion" class="ai-companion-robot">
+                            </div>
+                        </div>
+                        <div class="ai-companion-copy">
+                            <div class="ai-companion-title">OpenMind Buddy</div>
+                            <div id="aiCompanionMood" class="ai-companion-mood">Ready to cheer your team on.</div>
+                            <div id="aiCompanionHint" class="ai-companion-hint">Ask for a prompt when the discussion slows down, or keep speaking to energise the room.</div>
+                        </div>
+                    </div>
+                    <button id="aiGuideButton" class="btn btn-outline ai-guide-btn" type="button">
+                        <img src="../assets/images/icons/robot.svg" alt="AI" width="22" height="22">
+                        Ask AI Guide
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Voice Input Overlay -->
+<div id="voiceOverlay" class="voice-overlay" style="display:none;">
+    <div class="voice-overlay-content">
+        <div class="voice-wave">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+        </div>
+        <div id="voiceTimer" class="voice-timer">0:00</div>
+        <div class="voice-hint">Release to stop</div>
+    </div>
+</div>
+<div id="aiGuideBubble" class="ai-guide-bubble" style="display:none;">
+    <div class="ai-guide-bubble-header">
+        <img src="../assets/images/icons/robot.svg" alt="AI" class="ai-robot-avatar" width="40" height="40">
+        <div class="ai-guide-bubble-label">AI Guide</div>
+    </div>
+    <div id="aiGuideContent" class="ai-guide-bubble-content"></div>
+</div>
+<div id="allSpeakingLogsOverlay" class="notification-overlay" style="display:none;">
+    <div class="notification-box waiting-history-modal waiting-all-sessions-modal">
+        <div class="waiting-history-header">
+            <h2 style="margin:0;font-size:18px;">All Speaking Logs</h2>
+            <button id="closeAllSpeakingLogsBtn" class="btn btn-outline" type="button">Close</button>
+        </div>
+        <div id="allSpeakingLogsList" class="timeline-list"></div>
+    </div>
+</div>
+<script src="../assets/js/common/storage.js"></script>
+<script src="../assets/js/common/api.js"></script>
+<script src="../assets/js/common/auth.js"></script>
+<script src="../assets/js/common/utils.js"></script>
+<script src="../assets/js/common/websocket.js"></script>
+<script src="../assets/js/pages/discussion-room.js"></script>
+<script src="../assets/js/common/ai-assistant.js"></script>
+</body>
+</html>

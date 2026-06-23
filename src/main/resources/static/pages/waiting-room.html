@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenMind - Waiting Room</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
+    <link rel="stylesheet" href="../assets/css/tokens.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/pages.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body class="waiting-room-page">
+<div class="page-header page-header-student">
+    <div class="container">
+        <div class="header-shell">
+            <div class="header-copy">
+                <div class="header-eyebrow">Student Lobby</div>
+                <h1>Waiting Room</h1>
+                <div class="page-header-sub">Choose a discussion mission, save your seat, and get ready to meet your group.</div>
+                <div class="header-meta-line">
+                    <span class="header-meta-pill">Welcome <strong id="userName"></strong></span>
+                    <span class="header-meta-pill">Participants <strong id="participantCount">-</strong></span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="openHistoryBtn" class="btn btn-glass" type="button">History</button>
+                <button class="btn btn-glass" type="button" onclick="window.location.href='./student-settings.html?from=waiting-room'">Profile</button>
+                <button class="btn btn-glass" type="button" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="waiting-corner-mascot" aria-hidden="true">
+        <img src="../assets/images/openmind_robot_diagonal_wave_no_arcs.png" alt="" class="waiting-corner-mascot-image">
+    </div>
+    <div class="container waiting-layout">
+        <div class="waiting-main">
+            <div class="card stack">
+                <div class="card-header">
+                    <div class="stack" style="gap:6px;">
+                        <div class="card-kicker">Mission</div>
+                        <h2>Choose Your Session</h2>
+                        <div class="card-subtitle">Pick an open discussion and enter the lobby. Your group assignment will appear automatically when the teacher is ready.</div>
+                    </div>
+                </div>
+                <div class="waiting-form">
+                    <select id="sessionSelect" class="input"></select>
+                    <button id="joinSessionButton" class="btn" type="button" disabled>Join Mission</button>
+                </div>
+                <div id="sessionInfo" class="waiting-session-info" style="display:none;"></div>
+                <div id="waitingPulse" class="waiting-pulse-panel" style="display:none;">
+                    <div class="waiting-pulse-dots" aria-hidden="true">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div>
+                        <strong>Seat saved</strong>
+                        <div>Finding your discussion group...</div>
+                    </div>
+                </div>
+                <div id="message"></div>
+            </div>
+            <div class="card stack">
+                <div class="card-header">
+                    <div class="stack" style="gap:6px;">
+                        <div class="card-kicker">Available</div>
+                        <h2>Open Sessions</h2>
+                        <div class="card-subtitle">A quick glance at the sessions you can join right now.</div>
+                    </div>
+                </div>
+                <div id="sessionPreviewList" class="waiting-session-list"></div>
+                <button id="viewAllSessionsBtn" class="btn btn-outline waiting-view-all-btn" type="button" style="display:none;">View All Sessions</button>
+            </div>
+            <div class="card stack waiting-lobby-board-card">
+                <div class="card-header">
+                    <div class="stack" style="gap:6px;">
+                        <div class="card-kicker">Status</div>
+                        <h2>Lobby Board</h2>
+                    </div>
+                </div>
+                <div id="waitingStats" class="detail-metric-grid"></div>
+            </div>
+        </div>
+        <div class="waiting-side">
+            <div id="rejoinCard" class="card stack" style="display:none;">
+                <div class="card-header">
+                    <div class="stack" style="gap:6px;">
+                        <div class="card-kicker">Rejoin</div>
+                        <h2>Discussion Ready</h2>
+                    </div>
+                    <span class="status-chip status-active">Available</span>
+                </div>
+                <div id="rejoinMessage" class="card-subtitle">Your discussion room is ready to enter.</div>
+                <button id="rejoinDiscussionButton" class="btn btn-outline" type="button">Rejoin Discussion</button>
+            </div>
+            <div class="card stack waiting-map-card">
+                <div class="card-header">
+                    <div class="stack" style="gap:6px;">
+                        <div class="card-kicker">Quest Map</div>
+                        <h2>Mission Route</h2>
+                        <div class="card-subtitle">Drag the map, zoom in, and follow your four-step discussion journey.</div>
+                    </div>
+                    <div class="waiting-map-controls">
+                        <button id="waitingMapZoomOut" class="btn btn-outline waiting-map-control-btn" type="button" aria-label="Zoom out">-</button>
+                        <button id="waitingMapReset" class="btn btn-outline waiting-map-control-btn" type="button" aria-label="Reset map">o</button>
+                        <button id="waitingMapZoomIn" class="btn btn-outline waiting-map-control-btn" type="button" aria-label="Zoom in">+</button>
+                    </div>
+                </div>
+                <div id="waitingMapViewport" class="waiting-map-viewport">
+                    <div id="waitingMapCanvas" class="waiting-map-canvas">
+                        <svg class="waiting-map-track" viewBox="0 0 720 240" aria-hidden="true">
+                            <path class="waiting-map-track-shadow" d="M48 172 C146 70 246 56 340 118 S512 196 672 76"></path>
+                            <path class="waiting-map-track-main" d="M48 172 C146 70 246 56 340 118 S512 196 672 76"></path>
+                        </svg>
+                        <div class="waiting-map-glow waiting-map-glow-one"></div>
+                        <div class="waiting-map-glow waiting-map-glow-two"></div>
+                        <div class="waiting-map-glow waiting-map-glow-three"></div>
+                        <div class="waiting-map-glow waiting-map-glow-four"></div>
+                        <img id="waitingMapPlayer" class="waiting-map-player" src="../assets/images/avatars/kitty.png" alt="Your avatar">
+                        <div class="waiting-map-stage waiting-map-stage-one">
+                            <span class="waiting-map-stage-badge">1</span>
+                            <strong>Pick Session</strong>
+                        </div>
+                        <div class="waiting-map-stage waiting-map-stage-two">
+                            <span class="waiting-map-stage-badge">2</span>
+                            <strong>Join Waiting Room</strong>
+                        </div>
+                        <div class="waiting-map-stage waiting-map-stage-three">
+                            <span class="waiting-map-stage-badge">3</span>
+                            <strong>Enter Discussion</strong>
+                        </div>
+                        <div class="waiting-map-stage waiting-map-stage-four">
+                            <span class="waiting-map-stage-badge">4</span>
+                            <strong>View Result</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card stack">
+                <div class="card-header">
+                    <div class="stack" style="gap:6px;">
+                        <div class="card-kicker">Next</div>
+                        <h2>What Happens Next</h2>
+                    </div>
+                </div>
+                <div id="waitingProgress" class="waiting-progress-path">
+                    <div class="waiting-path-step active"><span>1</span><div>Pick Session</div></div>
+                    <div class="waiting-path-step"><span>2</span><div>Waiting Room</div></div>
+                    <div class="waiting-path-step"><span>3</span><div>Discussion Room</div></div>
+                    <div class="waiting-path-step"><span>4</span><div>View Result</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="allSessionsOverlay" class="notification-overlay" style="display:none;">
+    <div class="notification-box waiting-history-modal waiting-all-sessions-modal">
+        <div class="waiting-history-header">
+            <h2 style="margin:0;font-size:18px;">All Open Sessions</h2>
+            <button id="closeAllSessionsBtn" class="btn btn-outline" type="button">Close</button>
+        </div>
+        <div id="allSessionsList" class="waiting-session-list"></div>
+    </div>
+</div>
+<div id="historyOverlay" class="notification-overlay" style="display:none;">
+    <div class="notification-box waiting-history-modal">
+        <div id="historyHeader" class="waiting-history-header">
+            <h2 id="historyTitle" style="margin:0;font-size:18px;">My History</h2>
+            <button id="closeHistoryBtn" class="btn btn-outline" type="button">Close</button>
+        </div>
+        <div id="historyContent" class="waiting-history-content">Loading...</div>
+    </div>
+</div>
+<script src="../assets/js/common/storage.js"></script>
+<script src="../assets/js/common/api.js"></script>
+<script src="../assets/js/common/auth.js"></script>
+<script src="../assets/js/common/utils.js"></script>
+<script src="../assets/js/common/websocket.js"></script>
+<script src="../assets/js/pages/waiting-room.js"></script>
+<script src="../assets/js/common/ai-assistant.js"></script>
+</body>
+</html>
