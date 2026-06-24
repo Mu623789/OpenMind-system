@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Antenna -->
+  <circle cx="60" cy="12" r="6" fill="#a78bfa"/>
+  <rect x="57" y="16" width="6" height="12" rx="3" fill="#c4b5fd"/>
+  <!-- Head -->
+  <rect x="24" y="28" width="72" height="52" rx="18" fill="#7c3aed"/>
+  <rect x="28" y="32" width="64" height="44" rx="14" fill="#8b5cf6"/>
+  <!-- Eyes -->
+  <ellipse cx="44" cy="52" rx="10" ry="11" fill="#fff"/>
+  <ellipse cx="76" cy="52" rx="10" ry="11" fill="#fff"/>
+  <circle cx="46" cy="50" r="5" fill="#1e1b4b"/>
+  <circle cx="78" cy="50" r="5" fill="#1e1b4b"/>
+  <circle cx="48" cy="48" r="2" fill="#fff"/>
+  <circle cx="80" cy="48" r="2" fill="#fff"/>
+  <!-- Mouth -->
+  <path d="M48 66 Q60 76 72 66" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <!-- Cheeks -->
+  <ellipse cx="34" cy="62" rx="6" ry="4" fill="#c4b5fd" opacity=".5"/>
+  <ellipse cx="86" cy="62" rx="6" ry="4" fill="#c4b5fd" opacity=".5"/>
+  <!-- Body -->
+  <rect x="36" y="82" width="48" height="30" rx="10" fill="#7c3aed"/>
+  <rect x="40" y="86" width="40" height="22" rx="8" fill="#8b5cf6"/>
+  <!-- Heart on body -->
+  <path d="M55 94 C55 90 49 90 49 94 C49 98 55 102 55 102 C55 102 61 98 61 94 C61 90 55 90 55 94Z" fill="#f0abfc" opacity=".8"/>
+  <!-- Arms -->
+  <rect x="14" y="86" width="20" height="10" rx="5" fill="#a78bfa"/>
+  <rect x="86" y="86" width="20" height="10" rx="5" fill="#a78bfa"/>
+  <!-- Ears -->
+  <rect x="16" y="44" width="8" height="16" rx="4" fill="#a78bfa"/>
+  <rect x="96" y="44" width="8" height="16" rx="4" fill="#a78bfa"/>
+</svg>
